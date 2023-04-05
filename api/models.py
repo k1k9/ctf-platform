@@ -12,4 +12,4 @@ class Tasks(Base):
     status = Column(String(255))
     count_Up = Column(Integer)
     count_Down = Column(Integer)
-    data = Column(Date)
+    date = Column(Date)
