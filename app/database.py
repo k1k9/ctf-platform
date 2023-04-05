@@ -16,6 +16,14 @@ engine = create_engine(
     url_database
 )
 
-Sessionlocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
+Base.metadata.create_all(bind=engine)
+
+def get_db():
+    try:
+        db = SessionLocal()
+        yield db
+    finally:
+        db.close() 
