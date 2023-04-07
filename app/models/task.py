@@ -13,7 +13,7 @@ class Schema(Base):
     status = Column(String(255))
     count_Up = Column(Integer)
     count_Down = Column(Integer)
-    #date = Column(Date)
+    date = Column(Date)
 
 class Model(BaseModel):
     title: str = Field(min_lenght =1)

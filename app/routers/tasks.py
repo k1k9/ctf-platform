@@ -1,4 +1,4 @@
-from models import task as Task
+from models import task as Task, user as User, comment as Comment, solved as Solved
 from sqlalchemy.orm import Session
 from fastapi import APIRouter, Depends
 from database import SessionLocal, get_db
