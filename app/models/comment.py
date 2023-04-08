@@ -1,6 +1,6 @@
 from database import Base
 from pydantic import BaseModel, Field
-from sqlalchemy import Column, Integer, String, Date, Boolean, ForeignKey 
+from sqlalchemy import Column, Integer, String, DateTime, func , Boolean, ForeignKey 
 from sqlalchemy.orm import relationship
 
 class Comment(Base):
@@ -8,14 +8,14 @@ class Comment(Base):
     
     id = Column(Integer, primary_key=True, autoincrement=True)
     
-    task = relationship("Task", back_populates="comments")
     task_id = Column(Integer, ForeignKey("task.id"))
+    task = relationship("Task", back_populates="comments")
     
-    user = relationship("User", back_populates="comments")
     user_id = Column(Integer, ForeignKey("user.id"))
+    user = relationship("User", back_populates="comments")
     
     author = Column(String(200))
-    date = Column(Date)
+    date = Column(DateTime, default=func.now())
     comment = Column(String(250))
     rating = Column(Integer)
     is_protected = Column(Boolean)

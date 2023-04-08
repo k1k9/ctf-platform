@@ -1,15 +1,18 @@
 from database import Base
 from pydantic import BaseModel, Field
-from sqlalchemy import Column, Integer, String, Date, ForeignKey  
+from sqlalchemy import Column, Integer, String, DateTime, func 
 from sqlalchemy.orm import relationship
+
+
+
 
 class Task(Base):
     __tablename__ = "task"
 
     id = Column(Integer, primary_key=True, index=True)
+    comments = relationship('Comment', back_populates='task')
     solved_t = relationship('Solved', back_populates="task1")
-    comment = relationship('Comment',back_populates='task')
-    title =Column(String(255),unique=True)
+    title = Column(String(255),unique=True)
     reward = Column(String(150))
     lvl = Column(Integer)
     content = Column(String(255))
@@ -19,7 +22,10 @@ class Task(Base):
     category = Column(String(250))
     status = Column(String(255))
     author = Column(String(200))
-    date = Column(Date)
+    date = Column(DateTime, default=func.now())
+    
+    
+
 
 class Model(BaseModel):
     title: str = Field(min_length=1)

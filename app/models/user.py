@@ -10,6 +10,7 @@ class User(Base):
     
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     solved = relationship("Solved", back_populates="user")
+    comments = relationship("Comment", back_populates="user")
     username = Column(String(50), unique=True, nullable=False)
     nickname = Column(String(50), unique=True, nullable=False)
     password = Column(String(50), nullable=False)
