@@ -1,20 +1,16 @@
 <script setup>
 import { RouterView } from 'vue-router'
-import Navigation from './components/Navigation.vue';
+import Header from './components/Header.vue';
 </script>
 
 <template>
-  <header>
-      <h1>CTF-CM</h1>
-
-      <Navigation/>
-  </header>
+  <Header/>
 
   <main>
     <RouterView />
   </main>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
 </style>
