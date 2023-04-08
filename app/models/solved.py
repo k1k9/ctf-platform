@@ -1,13 +1,21 @@
 from database import Base
 from pydantic import BaseModel, Field
-from sqlalchemy import Column, Integer, String, Date
+from sqlalchemy import Column, Integer, String, Date, ForeignKey
+from sqlalchemy.orm import relationship
+
 
 class Solved(Base):
+
     __tablename__ = "solved"
+
     id = Column(Integer,primary_key=True ,autoincrement=True)
-    task_id = Column(Integer)
-    solved_id = Column(Integer)
+    task = relationship('Task', back_populates='solved_t')
+    task_id = Column(Integer, ForeignKey('task.id'))
     date = Column(Date)
 
+    user = relationship('User', back_populates='solved')
+    solved_id = Column(Integer, ForeignKey("user.id"))
 
-    
+class ModelSolved(BaseModel):
+    task_id: int = Field(gt =-1)
+     

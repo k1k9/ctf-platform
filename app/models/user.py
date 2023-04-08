@@ -1,10 +1,14 @@
 from database import Base
 from pydantic import BaseModel, Field
-from sqlalchemy import Column, Integer, String, Date, Boolean
+from sqlalchemy import Column, Integer, String, Date, Boolean, ForeignKey
+from sqlalchemy.orm import relationship
 
 class User(Base):
+
     __tablename__ = "user"
+    
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    sloved = relationship('Solved', back_populates="solved")
     username = Column(String(50), unique=True ,nullable=False)
     nickname = Column(String(50), unique=True, nullable=False)
     password = Column(String(50), nullable=False)
@@ -16,7 +20,9 @@ class User(Base):
     newsletter = Column(String(200))
     rank = Column(String(100))
     premium = Column(Boolean)
-
+    
+    
+    
 
 class Modeluser(BaseModel):
     username: str = Field(min_length=4, max_length=50)
