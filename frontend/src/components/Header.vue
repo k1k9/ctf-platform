@@ -4,7 +4,9 @@ import { RouterLink } from 'vue-router';
 
 <template>
     <header>
-        <h1>CTF-CM</h1>
+        <RouterLink to="/">
+            <h1>CTF-CM</h1>
+        </RouterLink>
 
         <nav>
             <ul>
@@ -24,6 +26,10 @@ header{
     margin: 0;
     text-align: center;
 
+    a{
+        text-decoration: none;
+    }
+
     nav{
         width: 100%;
         ul{
@@ -33,11 +39,22 @@ header{
             padding: 0;
             margin: 0;
             list-style: none;
-
-            li a{
-                text-decoration: none;
-            }
         }
     }
+}
+@media (min-width: 993px){
+  header{
+    display: flex;
+    box-sizing: border-box;
+    overflow: hidden;
+    text-align: left;
+    justify-content: space-between;
+    align-items: center;
+    padding: .5rem 1rem;
+
+    nav{
+        width: auto;
+    }
+  }
 }
 </style>
