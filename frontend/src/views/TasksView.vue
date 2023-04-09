@@ -9,6 +9,7 @@ export default{
   data(){
     return{
       task_easy:{
+        "id":1,
         "title": "Example task",
         "level": "easy",
         "category": "Forensics",
@@ -18,7 +19,8 @@ export default{
         "rating": 4.23
     },
     task_medium:{
-        "title": "Example task",
+      "id":2,  
+      "title": "Example task",
         "level": "medium",
         "category": "Forensics",
         "points": 20,
@@ -27,7 +29,8 @@ export default{
         "rating": 4.23
     },
     task_hard:{
-        "title": "Example task",
+      "id":3,  
+      "title": "Example task",
         "level": "hard",
         "category": "Forensics",
         "points": 20,
@@ -36,7 +39,8 @@ export default{
         "rating": 4.23
     },
     task_unrated:{
-        "title": "Example task",
+      "id":4,  
+      "title": "Example task",
         "level": "unrated",
         "category": "Forensics",
         "points": 20,

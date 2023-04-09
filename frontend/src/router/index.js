@@ -15,6 +15,11 @@ const router = createRouter({
       component: () => import('../views/TasksView.vue')
     },
     {
+      path: '/tasks/:id',
+      name: 'tasks_detail',
+      component: () => import('../views/TaskDetailView.vue')
+    },
+    {
       path: '/hof',
       name: 'hof',
       component: () => import('../views/HofView.vue')

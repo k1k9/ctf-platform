@@ -1,16 +1,22 @@
 <script>
+import { useRouter } from 'vue-router';
 export default{
     props:{
         data:{
             type: Object,
             required: true,
         }
+    },
+    methods:{
+        redicrectToTask(){
+            this.$router.push("/tasks/"+this.data.id);
+        }
     }
 }
 </script>
 
 <template>
-    <article>
+    <article @click="redicrectToTask">
         <header>
             <h3>{{ data.title }}</h3>
             <span class="category" :class="data.level">{{data.level}}</span>
