@@ -20,3 +20,4 @@ class ModelSolved(BaseModel):
     task_id: int = Field(gt=-1)
     solved_id: int
      
+    

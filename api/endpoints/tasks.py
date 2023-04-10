@@ -18,7 +18,7 @@ def get_tasks(offset: int = 0, limit: int = 100, db: Session = Depends(get_db)):
 @endpoint.get("/task/{task_id}")
 def get_task(task_id: int, db: Session = Depends(get_db)):
     """Return task by ID"""
-    return db.query(TaskModel).filter(TaskSchema.id == task_id).first()
+    return db.query(TaskSchema).filter(TaskSchema.id == task_id).first()
 
 @endpoint.post("/task")
 def create_task(task: TaskModel, db: Session = Depends(get_db)):

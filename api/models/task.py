@@ -4,8 +4,6 @@ from sqlalchemy import Column, Integer, String, DateTime, func
 from sqlalchemy.orm import relationship
 
 
-
-
 class TaskSchema(Base):
     __tablename__ = "task"
 
@@ -21,17 +19,13 @@ class TaskSchema(Base):
     rating = Column(String(250))
     category = Column(String(250))
     status = Column(String(255))
-    author = Column(String(200))
     date = Column(DateTime, default=func.now())
-    
-    
 
 
 class TaskModel(BaseModel):
     title: str = Field(min_length=1)
     reward: str = Field(min_length=1, max_length=150)
     lvl: int = Field(gt=-1, lt=5)
-    author: str = Field(min_length=1, max_length=255)
     content: str = Field(min_length=1, max_length=255)
     solution: str = Field(min_length=1, max_length=255)
     solvers: str = Field(min_length=1, max_length=255)
