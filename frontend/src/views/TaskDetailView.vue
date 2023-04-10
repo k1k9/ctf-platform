@@ -1,16 +1,18 @@
 <script>
-export default{
-    data(){
-        return{
-            task:{
-                "id":1,
+export default {
+    data() {
+        return {
+            task: {
+                "id": 1,
                 "title": "Example task",
                 "level": "easy",
                 "category": "Forensics",
                 "points": 20,
                 "author": "k1k9",
                 "solves": 12,
-                "rating": 4.23
+                "rating": 4.23,
+                "content": "Which format tag is your favourite?",
+                "file":"Riga.zip"
             }
         }
     }
@@ -18,9 +20,160 @@ export default{
 </script>
 <template>
     <article>
-        <header>
-            <h3>{{ this.task.title }}</h3>
-            <span class="category" :class="this.task.level">{{this.task.level}}</span>
-        </header>
+        <main>
+            <div class="header">
+                <p>{{ this.task.title }}</p>
+            </div>
+
+            <div class="content">
+                {{ this.task.content }}
+            </div>
+
+            <div class="footer">
+                <div v-if="this.task.file" class="download_file">
+                    <a :href="'/public/' + this.task.file">Download</a>
+                </div>
+
+                <div class="entry_flag">
+                    <input type="text" placeholder="CTFCM{h4ck3rm4n}">
+                    <input type="submit" value="Submit">
+                </div>
+            </div>
+        </main>
+
+        <aside>
+            <div class="metadata">
+                <div class="heading">
+                    <p>metadata.txt</p>
+                </div>
+                <ul class="content">
+                    <li>- Category: {{ this.task.category }}</li>
+                    <li>- Points: {{ this.task.points }}</li>
+                    <li>- Author: {{ this.task.author }}</li>
+                    <li>- Solves: {{ this.task.solves }}</li>
+                    <li>- Rating: {{ this.task.rating }}</li>
+                </ul>
+            </div>
+
+            <div class="solutions">
+                <div class="heading">
+                    <p>may_help.txt</p>
+                </div>
+                <ul class="content">
+                    <li>- <a href="#">The basics of crypto</a></li>
+                    <li>- <a href="#">Base64 Wikipedia</a></li>
+                    <li>- <a href="#">CyberChef</a></li>
+                </ul>
+            </div>
+        </aside>
     </article>
 </template>
+
+<style lang="scss" scoped>
+@import '../assets/variables';
+
+article {
+    width: 80%;
+    margin: 0 auto;
+    display: grid;
+    box-sizing: border-box;
+    margin-top: 5vh;
+    gap: 2rem;
+    font-family: "Hack";
+
+    main {
+        box-sizing: border-box;
+        background-color: $background-alt;
+        padding-bottom: 0.8rem;
+
+        .header{
+            width: 100%;
+            background: $background-alt2;
+            color: #3f3f3f;
+            padding: .3rem .5rem;
+            box-sizing: border-box;
+            p{
+                margin: 0;
+            }
+        }
+        .content{
+            padding: 0.8rem;
+        }
+        .footer {
+            display: flex;
+            justify-content: center;
+            margin-top: 1rem;
+            width: 100%;
+
+            input[type=text] {
+                background: $background;
+                color: $foreground;
+                border: none;
+                padding: .5rem;
+
+                &::placeholder {
+                    opacity: 0.7;
+                    color: $foreground;
+                }
+            }
+
+            input[type=submit] {
+                background: $background;
+                border: none;
+                color: $foreground;
+            }
+        }
+    }
+
+    aside {
+        display: grid;
+        box-sizing: border-box;
+
+        .metadata,
+        .solutions {
+            box-sizing: border-box;
+            background-color: $background-alt;
+
+            .heading {
+                width: 100%;
+                background: $background-alt2;
+                color: #3f3f3f;
+                padding: .3rem .5rem;
+                box-sizing: border-box;
+
+                p {
+                    margin: 0;
+                }
+            }
+
+            ul.content {
+                width: 100%;
+                box-sizing: border-box;
+                list-style: none;
+                padding: 0 .8rem;
+                color: $gray;
+
+                a {
+                    color: $gray;
+                }
+
+                li {
+                    padding: .3rem 0 .3rem 0;
+                }
+            }
+
+        }
+    }
+}
+
+@media (min-width: 993px)  {
+    article{
+        grid-template-columns: repeat(2, 1fr);
+
+            aside{
+            gap: 2rem;
+        }
+    }
+}
+
+</style>
