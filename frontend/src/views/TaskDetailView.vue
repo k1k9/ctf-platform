@@ -1,5 +1,10 @@
 <script>
+import IconDownload from '../components/icons/IconDownload.vue';
+
 export default {
+    components:{
+        IconDownload
+    },
     data() {
         return {
             task: {
@@ -31,7 +36,10 @@ export default {
 
             <div class="footer">
                 <div v-if="this.task.file" class="download_file">
-                    <a :href="'/public/' + this.task.file">Download</a>
+                    <a :href="'/public/' + this.task.file">
+                        <IconDownload/>
+                        {{ this.task.file }}
+                    </a>
                 </div>
 
                 <div class="entry_flag">
@@ -82,9 +90,12 @@ article {
     font-family: "Hack";
 
     main {
+        display: flex;
+        flex-direction: column;
         box-sizing: border-box;
         background-color: $background-alt;
         padding-bottom: 0.8rem;
+        min-height: 300px;
 
         .header{
             width: 100%;
@@ -101,26 +112,53 @@ article {
         }
         .footer {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             margin-top: 1rem;
             width: 100%;
+            margin-top: auto;
+            gap: 2rem;
 
-            input[type=text] {
-                background: $background;
-                color: $foreground;
-                border: none;
-                padding: .5rem;
-
-                &::placeholder {
-                    opacity: 0.7;
+            .download_file{
+                box-sizing: border-box;
+                padding: 0.3rem;
+                
+                a{
+                    display: flex;
+                    align-items: center;
                     color: $foreground;
+                    text-decoration: none;
+                    gap: 0.5rem;
+                    transition: opacity .5s;
+
+                    &:hover{
+                        cursor: pointer;
+                        opacity: 0.2;
+                    }
                 }
             }
 
-            input[type=submit] {
-                background: $background;
-                border: none;
-                color: $foreground;
+            .entry_flag{
+                display: flex;
+                justify-content: center;
+                
+                input[type=text] {
+                    background: $background;
+                    color: $foreground;
+                    border: none;
+                    padding: .5rem;
+
+                    &::placeholder {
+                        opacity: 0.7;
+                        color: $foreground;
+                    }
+                }
+
+                input[type=submit] {
+                    background: $background;
+                    border: none;
+                    color: $foreground;
+                }
             }
         }
     }
