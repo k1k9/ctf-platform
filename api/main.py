@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from database import Base, engine
 
-from routers import tasks as TaskRouter
+from endpoints.tasks import *
 from middlewares.checkErrors import checkErrors
 
 app = FastAPI()
@@ -11,7 +11,7 @@ Base.metadata.create_all(bind=engine)
 app.middleware("http")(checkErrors)
 
 # Router
-app.include_router(TaskRouter.router)
+app.include_router(endpoint)
 
 # HomePage
 @app.get('/')

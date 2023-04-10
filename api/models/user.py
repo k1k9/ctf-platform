@@ -1,16 +1,16 @@
 from database import Base
 from pydantic import BaseModel, Field
-from sqlalchemy import Column, Integer, String, Date, Boolean, ForeignKey
+from sqlalchemy import Column, Integer, String, Boolean
 from sqlalchemy.orm import relationship
 
 
-class User(Base):
+class UserSchema(Base):
 
     __tablename__ = "user"
     
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    solved = relationship("Solved", back_populates="user")
-    comments = relationship("Comment", back_populates="user")
+    solved = relationship("SolvedSchema", back_populates="user")
+    comments = relationship("CommentSchema", back_populates="user")
     username = Column(String(50), unique=True, nullable=False)
     nickname = Column(String(50), unique=True, nullable=False)
     password = Column(String(50), nullable=False)

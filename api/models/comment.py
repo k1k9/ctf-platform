@@ -3,16 +3,16 @@ from pydantic import BaseModel, Field
 from sqlalchemy import Column, Integer, String, DateTime, func , Boolean, ForeignKey 
 from sqlalchemy.orm import relationship
 
-class Comment(Base):
+class CommentSchema(Base):
     __tablename__ = "comment"
     
     id = Column(Integer, primary_key=True, autoincrement=True)
     
     task_id = Column(Integer, ForeignKey("task.id"))
-    task = relationship("Task", back_populates="comments")
+    task = relationship("TaskSchema", back_populates="comments")
     
     user_id = Column(Integer, ForeignKey("user.id"))
-    user = relationship("User", back_populates="comments")
+    user = relationship("UserSchema", back_populates="comments")
     
     author = Column(String(200))
     date = Column(DateTime, default=func.now())

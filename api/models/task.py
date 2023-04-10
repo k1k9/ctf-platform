@@ -6,12 +6,12 @@ from sqlalchemy.orm import relationship
 
 
 
-class Task(Base):
+class TaskSchema(Base):
     __tablename__ = "task"
 
     id = Column(Integer, primary_key=True, index=True)
-    comments = relationship('Comment', back_populates='task')
-    solved_t = relationship('Solved', back_populates="task1")
+    comments = relationship('CommentSchema', back_populates='task')
+    solved = relationship('SolvedSchema', back_populates="task")
     title = Column(String(255),unique=True)
     reward = Column(String(150))
     lvl = Column(Integer)
@@ -27,7 +27,7 @@ class Task(Base):
     
 
 
-class Model(BaseModel):
+class TaskModel(BaseModel):
     title: str = Field(min_length=1)
     reward: str = Field(min_length=1, max_length=150)
     lvl: int = Field(gt=-1, lt=5)
