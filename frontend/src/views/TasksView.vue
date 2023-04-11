@@ -1,6 +1,6 @@
 <script>
 import TaskCard from '../components/TaskCard.vue';
-
+import axios from 'axios';
 export default{
   components:{
     TaskCard
@@ -8,47 +8,13 @@ export default{
 
   data(){
     return{
-      task_easy:{
-        "id":1,
-        "title": "Example task",
-        "level": "easy",
-        "category": "Forensics",
-        "points": 20,
-        "author": "k1k9",
-        "solves": 12,
-        "rating": 4.23
-    },
-    task_medium:{
-      "id":2,  
-      "title": "Example task",
-        "level": "medium",
-        "category": "Forensics",
-        "points": 20,
-        "author": "k1k9",
-        "solves": 12,
-        "rating": 4.23
-    },
-    task_hard:{
-      "id":3,  
-      "title": "Example task",
-        "level": "hard",
-        "category": "Forensics",
-        "points": 20,
-        "author": "k1k9",
-        "solves": 12,
-        "rating": 4.23
-    },
-    task_unrated:{
-      "id":4,  
-      "title": "Example task",
-        "level": "unrated",
-        "category": "Forensics",
-        "points": 20,
-        "author": "k1k9",
-        "solves": 12,
-        "rating": 4.23
-    },
+      tasks: []
     }
+  },
+  mounted(){
+    axios
+        .get(`http://192.168.229.228:9999/tasks/`)
+        .then(response => (this.tasks = response["data"]))
   }
 }
 </script>
@@ -94,10 +60,7 @@ export default{
     </header>
 
     <main>
-      <TaskCard :data="task_easy"/>
-      <TaskCard :data="task_medium"/>
-      <TaskCard :data="task_hard"/>
-      <TaskCard :data="task_unrated"/>
+      <TaskCard v-for="task in tasks" :data="task"/>
     </main>
   </section>
 </template>
@@ -160,6 +123,7 @@ section {
   }
 }
 
+
 @media (min-width: 993px) {
   section {
     header {
@@ -189,7 +153,7 @@ section {
 @media (min-width: 1200px){
 section{
   main{
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 }
