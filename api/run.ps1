@@ -6,4 +6,4 @@ $env:DATABASE_NAME = "ctf-cm";
 
 # Run server
 # uvicorn Api:app --reload
-uvicorn main:app --reload
+uvicorn main:app --host 0.0.0.0 --port 9999 --reload 
