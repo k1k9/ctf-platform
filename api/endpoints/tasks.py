@@ -27,6 +27,8 @@ async def get_tasks(offset: int = 0, limit: int = 25, db: Session = Depends(get_
 async def get_task(task_id: int, db: Session = Depends(get_db)):
     """Return task by ID"""
     task = db.query(TaskSchema).filter(TaskSchema.id == task_id).first()
+    if not task:
+        raise HTTPException(status_code=404, detail="Task dosen't exist")
     return jsonable_encoder(task)
 
 @endpoint.post("/task")
@@ -45,6 +47,7 @@ async def delete_task(task_id: int, db: Session = Depends(get_db)):
     db.delete(db_task)
     db.commit()
     return {"message": "Task deleted successfully"}
+
 
 @endpoint.put("/task/{task_id}/update")
 def update_task(task_id: int, task: TaskModel, db: Session = Depends(get_db)):
