@@ -1,4 +1,5 @@
 <script>
+import axios from 'axios';
 import IconDownload from '../components/icons/IconDownload.vue';
 
 export default {
@@ -7,19 +8,14 @@ export default {
     },
     data() {
         return {
-            task: {
-                "id": 1,
-                "title": "Example task",
-                "level": "easy",
-                "category": "Forensics",
-                "points": 20,
-                "author": "k1k9",
-                "solves": 12,
-                "rating": 4.23,
-                "content": "Which format tag is your favourite?",
-                "file":"Riga.zip"
-            }
+            task: []
         }
+    },
+    mounted(){
+        const taskId = this.$route.params.id;
+        axios
+            .get(`http://localhost:9999/task/${taskId}`)
+            .then(response => (this.task = response["data"]))
     }
 }
 </script>
@@ -27,10 +23,11 @@ export default {
     <article>
         <main>
             <div class="header">
-                <p>{{ this.task.title }}</p>
+                <p>mission.txt</p>
             </div>
 
             <div class="content">
+                <h5>{{ this.task.title }}</h5>
                 {{ this.task.content }}
             </div>
 
@@ -56,9 +53,10 @@ export default {
                 </div>
                 <ul class="content">
                     <li>- Category: {{ this.task.category }}</li>
-                    <li>- Points: {{ this.task.points }}</li>
+                    <li>- Level: {{ this.task.lvl }}</li>
+                    <li>- Points: {{ this.task.reward }}</li>
                     <li>- Author: {{ this.task.author }}</li>
-                    <li>- Solves: {{ this.task.solves }}</li>
+                    <li>- Solves: {{ this.task.solvers }}</li>
                     <li>- Rating: {{ this.task.rating }}</li>
                 </ul>
             </div>

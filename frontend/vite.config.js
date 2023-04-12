@@ -14,5 +14,6 @@ export default defineConfig({
   server:{
     port: 8888,
     host: true,
-  }
+  },
+  clearScreen: false
 })

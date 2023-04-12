@@ -13,7 +13,7 @@ export default{
   },
   mounted(){
     axios
-        .get(`http://192.168.229.228:9999/tasks/`)
+        .get(`http://localhost:9999/tasks/`)
         .then(response => (this.tasks = response["data"]))
   }
 }
