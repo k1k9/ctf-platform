@@ -4,8 +4,8 @@ Developer environment
 ## Requirements
 To make environment working correctly you must have installed full stack app.
 1. [MySQL (via xampp)](https://www.apachefriends.org/pl/index.html)
-2. >= [Python 3.10](https://www.python.org/) and installed requirements.txt
-3. >= [NodeJS 18.15](https://github.com/coreybutler/nvm-windows) 
+2. => [Python 3.10](https://www.python.org/) and installed requirements.txt
+3. => [NodeJS 18.15](https://github.com/coreybutler/nvm-windows) 
 
 ## Default configuration
 MySql:
