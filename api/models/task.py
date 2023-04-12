@@ -1,6 +1,6 @@
 from database import Base
 from pydantic import BaseModel, Field
-from sqlalchemy import Column, Integer, String, Float ,DateTime, func 
+from sqlalchemy import Column, Integer, String, Float ,DateTime, func, Text
 from sqlalchemy.orm import relationship
 
 
@@ -13,7 +13,7 @@ class TaskSchema(Base):
     title = Column(String(255),unique=False)
     reward = Column(Integer)
     lvl = Column(String(9))
-    content = Column(String(255))
+    content = Column(Text)
     solution = Column(String(255))
     solvers = Column(Integer)
     rating = Column(Float)
@@ -26,7 +26,7 @@ class TaskModel(BaseModel):
     title: str = Field(min_length=1)
     reward: int = Field(gt=-1, lt=80)
     lvl: str = Field(min_length=1, max_length=9)
-    content: str = Field(min_length=1, max_length=255)
+    content: str = Field(min_length=10)
     solution: str = Field(min_length=1, max_length=255)
     solvers: int = Field(gt=-1)
     rating: float = Field(gt=-1, lt=5, round=2)
