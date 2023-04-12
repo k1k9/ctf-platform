@@ -23,7 +23,7 @@ export default {
     <article>
         <main>
             <div class="header">
-                <p>mission.txt</p>
+                <p>challenge.txt</p>
             </div>
 
             <div class="content">
@@ -156,6 +156,13 @@ article {
                     background: $background;
                     border: none;
                     color: $foreground;
+                    transition: background .5s, color .5s;
+
+                    &:hover{
+                        cursor: pointer;
+                        background: $foreground;
+                        color: $background
+                    }
                 }
             }
         }
@@ -198,6 +205,30 @@ article {
                 }
             }
 
+        }
+    }
+}
+
+@media (min-width: 600px){
+    article{
+        main{
+
+            .content{
+                padding: 1.2rem;
+            }
+            
+            .footer{
+                padding: 1rem;
+                box-sizing: border-box;
+                .entry_flag{
+                    input[type=text]{
+                        width: 80%;
+                    }
+                    input[type=submit]{
+                        width: 20%;
+                    }
+                }
+            }
         }
     }
 }
