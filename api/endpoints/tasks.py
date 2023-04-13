@@ -6,7 +6,6 @@ from fastapi import APIRouter, Depends, HTTPException
 
 # Modules
 from models.task import *
-from models.user import *
 from models.solved import *
 
 endpoint = APIRouter()
@@ -30,6 +29,17 @@ async def get_task(task_id: int, db: Session = Depends(get_db)):
     if not task:
         raise HTTPException(status_code=404, detail="Task dosen't exist")
     return jsonable_encoder(task)
+
+
+@endpoint.get("/tasks/{category}")
+async def get_tasks_by_category(category: str, db: Session = Depends(get_db)):
+    """Return category"""
+    tasks = db.query(TaskSchema).filter(TaskSchema.category == category).all()
+    return jsonable_encoder(tasks)
+
+
+
+
 
 @endpoint.post("/task")
 async def create_task(task: TaskModel, db: Session = Depends(get_db)):
