@@ -3,7 +3,9 @@ from fastapi import APIRouter, Depends , HTTPException
 from database import SessionLocal, get_db
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
+from passlib.context import CryptContext
 from models.user import *
+
 
 endpoint = APIRouter()
 
@@ -15,6 +17,9 @@ async def get_comments(user_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="User doesn't exist.")
     return jsonable_encoder(user)
 
+
+
+
 @endpoint.get('/users/')
 async def get_users(offset: int = 0, limit: int = 25, db: Session = Depends(get_db)):
     """Return by default maximum 25 users"""
@@ -25,11 +30,27 @@ async def get_users(offset: int = 0, limit: int = 25, db: Session = Depends(get_
     return JSONResponse(response)
 
 
+
+
+"""All Hash for pwd and salt"""
+hash_passw = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
 @endpoint.post("/user")
 async def create_user(user: ModelUser, db: Session = Depends(get_db)):
-    db_user = UserSchema(**user.dict())
+    hashed_password = hash_passw.hash(user.password)
+    db_user = UserSchema(username=user.username, nickname=user.nickname, password=hashed_password, email=user.email, image=user.image, description=user.description, points=user.points, user_rank=user.user_rank, newsletter=user.newsletter, premium=user.premium)
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
     return db_user
-    
+
+
+
+@endpoint.delete("/user/{user_id}/delete")
+async def delete_user(user_id: int, db: Session = Depends(get_db)):
+    db_user = db.query(UserSchema).filter(UserSchema.id == user_id).first()
+    if not db_user:
+        raise HTTPException(status_code=404, detail="user not found")
+    db.delete(db_user)
+    db.commit()
+    return {"message": "Account deleted successfully"}

@@ -23,7 +23,7 @@ async def create_comment(comment: CommentModel, db: Session = Depends(get_db)):
     return db_comment
 
 
-@endpoint.delete("/user/{comment_id}/delete")
+@endpoint.delete("/comment/{comment_id}/delete")
 async def delete_comment(comment_id: int, db: Session = Depends(get_db)):
     db_comment = db.query(CommentSchema).filter(CommentSchema.id == comment_id).first()
     if not db_comment:

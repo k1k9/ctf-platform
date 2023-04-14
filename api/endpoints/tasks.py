@@ -39,18 +39,21 @@ async def get_tasks_by_category(category: str, db: Session = Depends(get_db)):
 
 
 
-
-
 @endpoint.post("/task")
 async def create_task(task: TaskModel, db: Session = Depends(get_db)):
+    """Create Task"""
     db_task = TaskSchema(**task.dict())
     db.add(db_task)
     db.commit()
     db.refresh(db_task)
     return db_task
 
+
+
+
 @endpoint.delete("/task/{task_id}/delete")
 async def delete_task(task_id: int, db: Session = Depends(get_db)):
+    """Delete task by ID"""
     db_task = db.query(TaskSchema).filter(TaskSchema.id  == task_id).first()
     if not db_task:
         raise HTTPException(status_code=404, detail="task not found")
@@ -61,6 +64,7 @@ async def delete_task(task_id: int, db: Session = Depends(get_db)):
 
 @endpoint.put("/task/{task_id}/update")
 def update_task(task_id: int, task: TaskModel, db: Session = Depends(get_db)):
+    """Update task by ID"""
     db_task = db.query(TaskSchema).filter(TaskSchema.id == task_id).first()
     if not db_task:
         raise HTTPException(status_code=404, detail="Task not found")
