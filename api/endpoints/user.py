@@ -38,7 +38,16 @@ hash_passw = CryptContext(schemes=["bcrypt"], deprecated="auto")
 @endpoint.post("/user")
 async def create_user(user: ModelUser, db: Session = Depends(get_db)):
     hashed_password = hash_passw.hash(user.password)
-    db_user = UserSchema(username=user.username, nickname=user.nickname, password=hashed_password, email=user.email, image=user.image, description=user.description, points=user.points, user_rank=user.user_rank, newsletter=user.newsletter, premium=user.premium)
+    db_user = UserSchema(username=user.username,
+                        nickname=user.nickname, 
+                        password=hashed_password,
+                        email=user.email,
+                        image=user.image, 
+                        description=user.description, 
+                        points=user.points,
+                        user_rank=user.user_rank, 
+                        newsletter=user.newsletter, 
+                        premium=user.premium)
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
