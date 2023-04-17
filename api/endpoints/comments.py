@@ -14,6 +14,7 @@ async def get_commnets(task_id:int, db: Session = Depends(get_db)):
        raise HTTPException(status_code=404, detail="Comment doesnt't exist")
     return comment
 
+
 @endpoint.post("/comments")
 async def create_comment(comment: CommentModel, db: Session = Depends(get_db)):
     db_comment = CommentSchema(**comment.dict())
