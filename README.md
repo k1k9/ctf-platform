@@ -1,4 +1,4 @@
-# CTF-CM
+# Basic CTF Platform
 Developer environment
 
 ## Requirements
