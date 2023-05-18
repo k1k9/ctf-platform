@@ -55,4 +55,3 @@ git checkout <your_branch>
 # Download changes from main into branch
 git merge origin/main 
 ```
-
